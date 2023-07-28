@@ -1,0 +1,144 @@
+/*iPhoneおよび共通設定*/
+.header {
+    display: flex;
+    justify-content: space-between;  /* 横並びの要素を両端揃えで均等に配置する */
+    max-width: 960px;
+    padding: 0 4% 0 4%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main_content, .footer {
+    display: grid;
+    text-align: center;
+    max-width: 960px;
+    padding: 0 4% 0 4%;
+    margin: 0 auto;
+}
+
+.resume {
+    background-color: #344252;
+    color: #FDFAF7;
+    padding: 0;
+    padding: 0 4% 0 4%;
+}
+
+.header_list {
+    display: flex;
+    width: 200px;
+    font-size: 15px;
+    justify-content: space-between;
+    list-style-type: none;
+    align-items: center;
+    padding: 0;
+}
+.main_visual_photo {
+    display: grid;
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+.self-introduction {
+    display: flex;
+    width: 100%;
+    flex-flow: column;      /* flexアイテムを縦並びにする */
+    justify-items: center;
+    align-items: center;
+}
+
+.self-introduction_title {
+    padding-top: 55px;
+    font-size: 40px;
+    width:4em;
+    margin: 0 auto;
+    border-bottom:2px solid #000000;
+}
+
+.self-introduction_name {
+    margin-bottom: 5px;
+}
+
+.self-introduction_text {
+    text-align: left;
+}
+
+.profile_image_photo {
+    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+    width:  120px;       /* ※縦横を同値に */
+    height: 120px;
+}
+
+.profile_image {
+    display: flex;
+    width: 100%;
+    flex-flow: column;
+    justify-items: center;  /* 横方向の配置の指定を中央にする */
+    align-items: center;    /* 縦方向の配置の指定を中央にする */
+}
+
+.profile_image_title{
+    padding-top: 55px;
+    font-size: 40px;
+    border-bottom:2px solid #010000;
+}
+
+.profile_image h4 {
+    margin-bottom: 5px;
+}
+
+.profile_image img {
+    width: 100%;
+}
+
+.footer {
+    margin-top: 106px;
+    font-size: 13px;
+}
+
+/*iPadの設定*/
+@media screen and (min-width:600px) {    
+
+    .resume {
+        margin-right: auto;
+        padding: 0 2% 0 2%;
+    }
+
+    .self-introduction {
+        flex-flow: nowrap;
+        justify-content: center;  /* 横並びの要素を中央寄せで配置する */
+        margin-top: 30px;
+    }
+
+    .self-introduction_title {
+        background-color: azure;
+        margin: 0 auto;
+        width:4em;
+        border-bottom:2px solid #A6A7A6;
+        padding-top: 0;
+        margin-top: 60px;
+    }
+    
+    .self-introduction_son {
+        margin: 0 45px 0 0;
+    }
+
+    .self-introduction_name {
+        text-align: left;
+    }
+
+    .profile_image_photo {
+        margin: 0 0 15px 0;
+    }
+
+    .profile_image_son {
+        display: flex;
+        flex-flow: nowrap;  /* flexアイテムを折り返しされず一行に表示する*/
+        gap: 15px;
+    }
+
+    .profile_image_title {
+        border-bottom:2px solid #131011;
+    }
+
+}
