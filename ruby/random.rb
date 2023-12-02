@@ -1,4 +1,5 @@
 def random_group
+  
   members = ['A', 'B', 'C', 'D', 'E', 'F']
   group_members = members.shuffle
 
