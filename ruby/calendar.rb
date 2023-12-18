@@ -26,7 +26,7 @@ opt.on('-m')
 # parseすることで引数だけを取り出す
 opt.parse!(ARGV)
 
-# カレンダー出力用メソッド
+# カレンダー出力メソッド
 def to_calendar(year, month)
   # 月初日付・月末日付を取得
   first_day = Date.new(year, month)
