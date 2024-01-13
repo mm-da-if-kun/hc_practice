@@ -2,6 +2,7 @@ class Suica
   # Suicaのチャージ残高変数
   @@charge = 500
 
+  # クラスメソッドの定義
   class << self
     # Suicaのチャージ残高参照
     def charge
@@ -29,7 +30,7 @@ class Suica
     # Suicaに任意の金額をチャージする
     def charge=(price)
       if price < 100
-        raise '100円以上をチャージしてください。'
+        raise '100円以上の金額をチャージしてください。'
       else
         @@charge += price
       end

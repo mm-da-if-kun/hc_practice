@@ -1,10 +1,32 @@
+# Suicaクラス、Juiceクラスを読み込む
 require_relative './suica'
 require_relative './juice_management'
 
-class Purchase
+# Juiceクラスを継承したPurchaseクラスと定義
+class Purchase < Juice
   # 売上金額変数
   @@sales_amount = 0
 
+  # 在庫参照
+  attr_reader :number
+
+  def initialize(name, price, number)
+    # スーパークラスのinitializeメソッドを呼び出す
+    super(name, price)
+    @number = number
+  end
+
+  # 在庫を減らす
+  def stocks_consumption=(number)
+    @number -= number
+  end
+
+  # 在庫を補充する
+  def stocks_replenishment=(number)
+    @number += number
+  end
+
+  # クラスメソッドの定義
   class << self
     # 売上金額参照
     def sales_amount
@@ -16,7 +38,7 @@ class Purchase
       puts "現在の売上金額は#{@@sales_amount}円です。"
     end
 
-    # 購入可否の参照用
+    # 購入可否の参照
     def to_decide
       @decide
     end
@@ -63,6 +85,7 @@ class Purchase
       else
         puts "#{juice_stocks_array.name}は購入不可能です。"
       end
+      # 「購入可否の参照」メソッドの呼び出し
       to_decide
     end
 
@@ -81,7 +104,8 @@ class Purchase
     # 購入可能なドリンクをリストとして出力する
     def drink_list(juice_stocks)
       juice_stocks.each do |juice_stock|
-        puts "#{juice_stock.name}#{juice_stock.price}円が#{juice_stock.number}本あります。"
+        # puts "#{juice_stock.name}#{juice_stock.price}円が#{juice_stock.number}本あります。"
+        puts "#{juice_stock.name}#{juice_stock.price}円は#{juice_stock.number}本まで購入可能です。"
       end
     end
 
@@ -101,23 +125,24 @@ Suica.charge_balance
 
 # 初期在庫にペプシ、モンスター、いろはすを5本ずつ追加する
 # 購入可能なドリンクをリストとして取得するための配列に格納する
-pepsi = Juice.new('ペプシ', 150, 5)
-monster = Juice.new('モンスター', 230, 5)
-irohasu = Juice.new('いろはす', 120, 5)
+pepsi = Purchase.new('ペプシ', 150, 5)
+monster = Purchase.new('モンスター', 230, 5)
+irohasu = Purchase.new('いろはす', 120, 5)
 juice_stocks = [pepsi, monster, irohasu]
 
 # 「購入可能なドリンクをリストとして出力する」メソッドの呼び出し
 Purchase.drink_list(juice_stocks)
 
 # 購入用インスタンス
-juice = Juice.new('ペプシ', 150, 1)
+juice = Purchase.new('いろはす', 120, 1)
 
 # 在庫補充用インスタンス
-juice_monster = Juice.new('モンスター', 230, 1)
+juice_monster = Purchase.new('いろはす', 120, 1)
 
 # 「購入処理」メソッドの呼び出し
 Purchase.drink_to_decide(juice, juice_stocks)
 # 「現在の売上金額を出力する」メソッドの呼び出し
 Purchase.output_sales_amount
+
 # 「在庫補充」メソッド呼び出し
 Purchase.stocks_consumption_preprocessing(juice_monster, juice_stocks)
