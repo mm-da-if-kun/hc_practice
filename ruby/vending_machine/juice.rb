@@ -3,6 +3,7 @@ class Juice
   attr_reader :name, :price
 
   def initialize(name, price)
+    # 商品名、値段
     @name = name
     @price = price
   end
