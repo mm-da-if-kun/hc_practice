@@ -16,7 +16,7 @@
 [tweets] {bgcolor: "#ececfc"}
   *id {label: "bigint, not null"}
   user_id {label: "bigint, not null, FK(users)"}
-  tweet {label: "varchar(280), not null"}
+  content {label: "varchar(280), not null"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
@@ -29,29 +29,29 @@
 
 [retweets] {bgcolor: "#d0e0d0"}
   *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
 [follows] {bgcolor: "#ececfc"}
   *id {label: "bigint, not null"}
-  user_id {label: "bigint, not null, FK(users)"}
-  follow_user_id {label: "bigint, not null, uniq"}
-  follow_user_name {label: "varchar, not null, uniq"}
+  follower_id {label: "bigint, not null, FK(users)"}
+  followed_id {label: "bigint, not null, FK(users)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
 [direct_messages] {bgcolor: "#d0e0d0"}
   *id {label: "bigint, not null"}
-  user_id {label: "bigint, not null, FK(users)"}
-  direct_message_user_id {label: "bigint, not null"}
-  direct_message_user_name {label: "varchar, not null"}
-  direct_message {label: "varchar, not null"}
+  sender_id {label: "bigint, not null, FK(users)"}
+  receipient_id {label: "bigint, not null, FK(users)"}
+  content {label: "varchar, not null"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
-[notifications] {bgcolor: "#ececfc"}
+[notifications] {bgcolor: "#d0e0d0"}
   *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
   like_id {label: "bigint, not null, FK(likes)"}
   follow_id {label: "bigint, not null, FK(follows)"}
   created_at { label: "datatime, not null"}
@@ -59,6 +59,7 @@
 
 [bookmarks] {bgcolor: "#d0e0d0"}
   *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
@@ -68,11 +69,17 @@
 # exactly 1      1
 # 0 or more      *
 # 1 or more      +
-users *--1 `tweets`
-users *--1 `likes`
-tweets *--1 `retweets`
-users *--1 `follows`
-users *--1 `direct_messages`
-tweets *--1 `notifications`
-follows *--1 `notifications`
-tweets *--1 `bookmarks`
+users 1--* `tweets`
+users 1--* `likes`
+users 1--* `retweets`
+users 1--* `follows`
+users 1--* `follows`
+users 1--* `direct_messages`
+users 1--* `direct_messages`
+users 1--* `notifications`
+users 1--* `bookmarks`
+tweets 1--* `likes`
+tweets 1--* `retweets`
+notifications 1--* `likes`
+notifications 1--* `follows`
+bookmarks *--1 `tweets`
